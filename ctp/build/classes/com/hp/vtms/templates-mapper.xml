@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="templates">
+    <select id="getVmsByEventId" resultType="com.hp.vtms.model.Templates" resultMap="TemplatesResultMap">
+           select temp_vms, temp_vm1_name,
+           temp_vm2_name, temp_vm3_name,temp_vm4_name, temp_vm5_name, temp_vm6_name,
+           temp_vm7_name,temp_vm8_name,temp_vm9_name, temp_vm10_name,
+           temp_vm1_rdp,temp_vm2_rdp,temp_vm3_rdp,temp_vm4_rdp,temp_vm5_rdp,temp_vm6_rdp,
+           temp_vm7_rdp,temp_vm8_rdp,temp_vm9_rdp,temp_vm10_rdp
+           from templates
+           where temp_id=#{tempId}
+         </select>
+         
+</mapper>

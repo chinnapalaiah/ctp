@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vms">
+    <select id="getVmsByTempId" resultType="com.hp.vtms.model.Vms" resultMap="VmsResultMap" parameterType="java.lang.Long">
+           select vm_id, vm_temp_id, vm_name, vm_console, vm_rdp, vm_ram, vm_cpu, vm_ip, vm_mac, vm_is_windows
+           from vms
+           where vm_temp_id=#{vmtempId}
+           
+    </select>
+    <select id="getVmsByTempIdAndUserName" resultType="com.hp.vtms.model.Vms" resultMap="VmsResultMap" parameterType="com.hp.vtms.model.Vms">
+           select vm_id, vm_temp_id, vm_name, vm_console, vm_rdp, vm_ram, vm_cpu, vm_ip, vm_mac, vm_is_windows
+           from vms
+           where vm_temp_id=#{vmtempId} and vm_name=#{userName}
+           
+    </select>
+    
+     <select id="getVmByName" resultType="com.hp.vtms.model.Vms" resultMap="VmsResultMap" parameterType="java.lang.String">
+           select vm_id, vm_temp_id, vm_name, vm_console, vm_rdp, vm_ram, vm_cpu, vm_ip, vm_mac, vm_is_windows
+           from vms
+           where vm_name=#{vmName}
+           
+    </select>
+       <select id="getVmIdByVm" resultType="com.hp.vtms.model.Vms" resultMap="VmsResultMap" parameterType="com.hp.vtms.model.Vms">
+           select vm_id, vm_temp_id, vm_name, vm_console, vm_rdp, vm_ram, vm_cpu, vm_ip, vm_mac, vm_is_windows
+           from vms
+           where vm_name=#{vmName} and vm_temp_id=#{vmTempId}
+           
+    </select>
+
+
+</mapper>

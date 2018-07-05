@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event">
+
+    <resultMap type="com.hp.vtms.model.Event" id="eventResultMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="instructor" column="instructor"/>
+        <result property="description" column="description"/>
+        <result property="adminInfo" column="admin_info"/>
+        <result property="vms" column="vms"/>
+        <result property="eventTempid" column="event_temp_id"/>
+        <result property="ram" column="ram"/>
+        <result property="cpus" column="cpus"/>
+        <result property="created" column="created"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="lastUpdatedBy" column="last_updated_by"/>
+
+        <result property="lastUpdated" column="last_updated"/>
+
+        <result property="eventTempName" column="event_temp_name"/>
+        <result property="approved" column="approved"/>
+        <result property="classesProvisioned" column="classes_provisioned"/>
+        <result property="instructor2" column="instructor2"/>
+        <result property="instructor3" column="instructor3"/>
+
+        <result property="instructor4" column="instructor4"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="cell" column="cell"/>
+        <result property="advanced" column="advanced"/>
+        <result property="cellLocation" column="cell_location"/>
+        <result property="numStudents" column="num_students"/>
+        <result property="vendorPartId" column="vendor_part_id"/>
+        <result property="showVRoom" column="show_vrooms"/>
+        <result property="eventStatus" column="event_status"/>        
+        <result property="business" column="business"/>
+        <result property="eventTimezone" column="event_timezone"/>
+        <result property="eventTiered" column="event_tiered"/>
+    </resultMap>
+
+</mapper>

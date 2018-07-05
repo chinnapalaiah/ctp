@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="info">
+          <resultMap type="com.hp.vtms.model.Info" id="infoResultMap">
+            <id property="infoId" column="info_id" />
+            <result property="infoShow" column="info_show"/>
+             <result property="infoItem" column="info_item"/>
+              <result property="infoValue" column="info_value"/>
+              <result property="infoValue2" column="info_value2"/>
+              <result property="infoValue3" column="info_value3"/>
+               <result property="infoWarning" column="info_warning"/>
+            
+          </resultMap>
+        
+        </mapper>

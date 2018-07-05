@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="instructor">
+
+    <select id="getAllInstructor" resultType="list" resultMap="instructorResultMap">
+		select in_user_id, in_username, in_password from instructors
+	</select>
+
+    <update id="batchUpdatePass">
+        <foreach collection="list" item="Instructor" index="index" separator="OR">
+            UPDATE instructors SET in_password = #{Instructor.in_password}
+        </foreach>
+        WHERE in_user_id = #{Instructor.in_user_id}
+    </update>
+
+    <select id="login" parameterType="java.lang.String" resultType="com.hp.vtms.model.Instructor"
+            resultMap="instructorResultMap">
+    select * from instructors where in_username=#{username}
+    </select>
+    
+      <select id="getNameByEventId" parameterType="java.lang.Long" resultType="java.lang.String"
+           >
+    select in_username from instructors where event_id=#{eventId}
+    </select>
+    
+     <select id="getInstructorNameById" parameterType="java.lang.String" resultType="java.lang.String"
+           >
+    select in_username from instructors where in_user_id=#{instructorId}
+    </select>
+    
+</mapper>

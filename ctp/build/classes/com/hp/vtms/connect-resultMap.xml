@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="connect">
+      <resultMap type="com.hp.vtms.model.Connect" id="connectResultMap">
+        <id property="conId" column="con_id"/>
+        <result property="conUserId" column="con_user_id"/>
+         <result property="conAppName" column="con_app_name"/>
+          <result property="conTempId" column="con_temp_id"/>
+          <result property="conVmId" column="con_vm_id"/>
+        <result property="conVmName" column="con_vm_name"/>
+         <result property="conCell" column="con_cell"/>
+         <result property="conIpAddress" column="con_ip_address"/>
+          <result property="conIpXAddress" column="con_ip_xaddress"/>
+           <result property="conNic" column="con_nic"/>
+         <result property="conUsername" column="con_username"/>
+         <result property="conGateway" column="con_gateway"/>
+      
+      </resultMap>
+      
+   </mapper>

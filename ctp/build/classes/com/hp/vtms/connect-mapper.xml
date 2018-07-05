@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="connect">
+
+	<select id="getConnectByVmId" parameterType="com.hp.vtms.model.Connect"
+            resultType="list" resultMap="connectResultMap">
+		select * from connect where con_vm_id=#{conVmId} and con_user_id=#{conUserId} 
+	</select>
+	
+	
+	<select id="getConnectByUserId" parameterType="com.hp.vtms.model.Connect"
+            resultType="list" resultMap="connectResultMap">
+		select * from connect where con_user_id=#{conUserId} 
+	</select>
+	
+	<select id="getConnectByAppName" parameterType="com.hp.vtms.model.Connect"
+            resultType="list" resultMap="connectResultMap">
+		select * from connect where con_vm_id=#{conVmId} and con_app_name=#{conAppName} 
+	</select>
+		
+	<select id="getTopConnectByUserName" parameterType="java.lang.String"
+             resultMap="connectResultMap">
+		select top 1 * from connect where  con_user_id=#{conUserId} 
+	</select>
+
+</mapper>

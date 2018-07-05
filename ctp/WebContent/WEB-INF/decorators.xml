@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/decorators">
+
+
+    <!-- That defines the page don't need to filter, that is, won't be decorated-->
+    <excludes>
+        <pattern>**/getVmsHtml.do**</pattern>
+        <pattern>**/*getStuVmsHtml.do*</pattern>
+        <pattern>**/*initialStudentmgm.do*</pattern>
+         <pattern>**/getStatusOfVmOrVapp.do</pattern>
+         <pattern>**/toPluginConsole.do**</pattern>
+         <pattern>**/toHtmlConsole.do**</pattern>
+         <pattern>**/connContent.do**</pattern>
+
+    </excludes>
+
+    <!-- Need to filter's page -->
+    <decorator name="decorator" page="decorator.jsp">
+        <pattern>**</pattern>
+        <excludes>/jsp/trainingmgm.jsp</excludes>
+    </decorator>
+    <!--  
+    <decorator name="trainingmgm" page="decorator1.jsp">
+        <pattern>*trainingmgm.*</pattern>
+        <pattern>*studentmgm.*</pattern>
+    </decorator>
+    -->
+</decorators>  

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vms">
+
+    <resultMap type="com.hp.vtms.model.Vms" id="VmsResultMap">
+        <id property="vmId" column="vm_id"/>
+        <result property="vmTempId" column="vm_temp_id"/>
+        <result property="vmName" column="vm_name"/>
+        <result property="vmConsole" column="vm_console"/>
+        <result property="vmRdp" column="vm_rdp"/>
+        <result property="vmRam" column="vm_ram"/>
+        <result property="vmCpu" column="vm_cpu"/>
+        <result property="vmIp" column="vm_ip"/>
+        <result property="vmMac" column="vm_mac"/>
+  		<result property="vmIsWindows" column="vm_is_windows"/>
+    </resultMap>
+
+</mapper>

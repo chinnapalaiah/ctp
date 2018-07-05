@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <import resource="classpath:applicationContext.xml"/>
+
+    <context:component-scan base-package="com.hp.vtms"/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+        	<mvc:exclude-mapping path="/**/getip.do*"/>
+        	<mvc:exclude-mapping path="/**/ping.do*"/>
+            <bean class="com.hp.vtms.util.LoginInterceptor"></bean>
+        </mvc:interceptor>
+         <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+        	<mvc:exclude-mapping path="/**/getip.do*"/>
+        	<mvc:exclude-mapping path="/**/ping.do*"/>
+            <bean class="com.hp.vtms.util.SessionTimeInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <mvc:default-servlet-handler/>
+
+    <bean
+            class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+                <bean
+                        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="prefix" value="/WEB-INF/views/jsp/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean
+                        class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="exceptionResolver" class="com.hp.vtms.VTMSExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">error</prop>
+                <prop
+                        key="org.springframework.web.multipart.MaxUploadSizeExceededException">max-error
+                </prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <!-- change max size exceed excetion status to 200 because IE 500 feature -->
+            <map>
+                <entry key="max-error">
+                    <value>200</value>
+                </entry>
+            </map>
+        </property>
+        <property name="defaultStatusCode" value="500"></property>
+        <property name="defaultErrorView" value="jsonView"></property>
+    </bean>
+
+
+</beans>

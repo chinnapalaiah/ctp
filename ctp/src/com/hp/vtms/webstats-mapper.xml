@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nameSpaceWebstats" >
+
+    <resultMap type="com.hp.vtms.model.Webstatsvm" id="webstatsResultMap">
+        <id property="userId" column="webstatsvm_id"/>
+        <result property="userName" column="webstatsvm_username"/>
+        <result property="vmname" column="webstatsvm_vmname"/>
+        <result property="showRdp" column="webstatsvm_show_rdp"/>
+        <result property="showConsole" column="webstatsvm_show_console"/>
+        <result property="update" column="webstatsvm_update"/>
+        <result property="sessionServer" column="webstatsvm_session_server"/>
+    </resultMap>
+
+	 <insert id="insertRdpConsoleDetails" parameterType="com.hp.vtms.model.Webstatsvm"  keyProperty="webstatsvm_id" useGeneratedKeys="true">
+		INSERT into webstatsvm(webstatsvm_username,webstatsvm_vmname,webstatsvm_show_rdp,webstatsvm_show_console,webstatsvm_update,webstatsvm_session_server) 
+		VALUES(#{userName}, #{vmname}, #{showRdp}, #{showConsole}, #{update},#{sessionServer}) 	    
+	</insert>
+	
+	 <select id="selectInstructorSession" resultType="list" parameterType="java.lang.String" resultMap="webstatsResultMap">
+	    SELECT webstatsvm_username,webstatsvm_vmname,webstatsvm_show_rdp,webstatsvm_show_console,webstatsvm_update,webstatsvm_session_server from webstatsvm WHERE webstatsvm_username = #{userName}
+	</select>
+	
+	 <select id="retrieveStudentRecord" resultType="list" parameterType="java.lang.String" resultMap="webstatsResultMap">
+	    SELECT webstatsvm_username,webstatsvm_vmname,webstatsvm_show_rdp,webstatsvm_show_console,webstatsvm_update,webstatsvm_session_server from webstatsvm WHERE webstatsvm_username = #{userName} and webstatsvm_vmname=#{vmname} 
+	</select>
+	
+	 <update id="updateRdpConsoleDetails" parameterType="com.hp.vtms.model.Webstatsvm" >
+		UPDATE webstatsvm SET webstatsvm_show_rdp=#{showRdp}, webstatsvm_show_console =#{showConsole} WHERE webstatsvm_username = #{userName} and  webstatsvm_vmname=#{vmname} 	    
+	</update>
+	
+	<delete id="deleteAllStudentRecords" parameterType="java.lang.String" >
+		DELETE from webstatsvm WHERE webstatsvm_username = #{userName}
+	</delete>
+	
+	
+</mapper> 

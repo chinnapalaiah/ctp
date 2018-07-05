@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event">
+
+    <select id="getList" parameterType="com.hp.vtms.model.Event"
+            resultType="list" resultMap="eventResultMap">
+		select id, name, description from events where name like '%' #{username} '%'
+	</select>
+
+    <select id="getCell" parameterType="java.lang.Long"
+            resultType="java.lang.String">
+	select cell from events where id= #{eventId}
+	</select>
+
+    <select id="getTempId" parameterType="java.lang.Long"
+            resultType="list" resultMap="eventResultMap">
+		select * from events where id=#{eventId} 
+	</select>
+
+
+    <select id="getAllEvent" resultType="list" resultMap="eventResultMap">
+		select
+		 id,
+		 name,
+		 start_date,
+		 end_date,
+		 instructor, 
+		 description,
+		 admin_info,
+		 vms,
+		 ram,
+		 cpus,
+		 created,
+		 created_by,
+		 last_updated_by,
+		 last_updated,
+		 event_temp_id,
+		 event_temp_name,
+		 approved,
+		 classes_provisioned,
+		 instructor2,
+		 instructor3,
+		 instructor4,
+		 start_time,
+		 end_time,
+		 cell,
+		 show_vrooms
+		from events
+	</select>
+
+    <!--select events by instructor   vivian -->
+    <select id="getEventByInstructor" parameterType="com.hp.vtms.model.Instructor" resultType="list"
+            resultMap="eventResultMap">
+		select * from events where id=#{eventId}
+	</select>
+
+    <!--select events by attendees   vivian -->
+    <select id="getEventByAttendees" parameterType="com.hp.vtms.model.Attendees" resultType="list"
+            resultMap="eventResultMap">
+		select * from events where id=#{eventId}
+	</select>
+
+
+    <!--It's a query test about event by Vivian -->
+    <select id="getAllEventTest" resultType="list" resultMap="eventResultMap">
+      select id,name,instructor,description from events
+   </select>
+    <!--It's a delete test about event by Vivian -->
+    <delete id="delete" parameterType="java.lang.Long">
+     delete from events where id = #{id}
+   </delete>
+
+    <!--It's a query test about event by Vivian -->
+    <insert id="insert" parameterType="com.hp.vtms.model.Event">
+	  insert into events(name, instructor)
+		values(#{name}, #{instructor})
+	</insert>
+
+    <!-- eventResultMap是event-resultmap.xml中定义的resultmap -->
+    <select id="get" parameterType="com.hp.vtms.model.Event"
+            resultType="com.hp.vtms.model.Event" resultMap="eventResultMap">
+  <![CDATA[
+
+   select * from events where id = #{id}
+
+        ]]>
+	</select>
+
+
+    <!-- 自动生成id策略 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.hp.vtms.model.Event">
+        insert into events(id, name, instructor)
+        values(#{id,jdbcType=BIGINT}, #{name}, #{instructor})
+        <!--将最后插入的逐渐返回到java对象 -->
+        <selectKey resultType="int" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+
+    <update id="edit" parameterType="com.hp.vtms.model.Event">
+		update events set
+		name = #{name},
+		instructor= #{instructor}
+		where id= #{id}
+	</update>
+
+    <delete id="remove" parameterType="com.hp.vtms.model.Event">
+		delete from events where id = #{id}
+	</delete>
+
+</mapper> 

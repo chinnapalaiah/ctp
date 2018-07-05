@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop          http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+	http://www.springframework.org/schema/context     http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd   
+
+
+
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <util:properties id="envConfig" location="classpath:vtms.properties"/>
+    
+    <context:annotation-config/>
+    
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+		<property name="initialSize" value="8" />
+		<property name="maxActive" value="20" />
+		<property name="minIdle" value="1" />
+		<property name="maxIdle" value="1" />
+    </bean>
+    
+   <!-- <bean id="dataSourceUAG" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.urluag}"/>
+        <property name="username" value="${jdbc.usernameuag}"/>
+        <property name="password" value="${jdbc.passworduag}"/>
+        <property name="maxActive" value="20"/>
+    </bean> -->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations" value="classpath*:com/hp/vtms/*.xml"/>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+		<property name="nestedTransactionAllowed" value="true" />
+    </bean>
+
+    <bean
+            class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+        <constructor-arg index="1" value="BATCH"/>
+    </bean>
+
+    <bean id="sessionscope" class="com.hp.vtms.service.impl.VCloudServiceImpl"
+          scope="session">
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+       <!--   <bean id="getVmsInterceptor" class="com.hp.vtms.util.GetVmsInterceptor"/>
+     
+      <aop:config >
+	     <aop:aspect ref="getVmsInterceptor">  
+	        <aop:pointcut id="poicut" expression="execution(* com.hp.vtms.service.VCloudService.getAms(..))" /> 
+	        <aop:around method="doAfter" pointcut-ref="poicut"/>  
+	      
+       </aop:aspect>
+    </aop:config>
+    -->
+     
+   
+</beans>

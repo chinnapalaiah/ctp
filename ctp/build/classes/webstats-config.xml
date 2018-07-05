@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+<properties resource='jdbc.properties'/>
+  <typeAliases>
+     <typeAlias type="com.hp.vtms.model.Webstatsvm" />
+  </typeAliases>  
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value='${jdbc.driverClassName}'/>
+        <property name="url" value='${jdbc.urluag}'/>
+        <property name="username" value='${jdbc.usernameuag}'/>
+        <property name="password" value='${jdbc.passworduag}'/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <!-- <mapper resource="com/concretepage/VillageMapper.xml" /> -->
+    <mapper resource="com/hp/vtms/webstats-mapper.xml" />
+  </mappers>
+</configuration> 
+
